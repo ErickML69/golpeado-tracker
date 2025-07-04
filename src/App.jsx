@@ -14,7 +14,7 @@ export default function CardTracker() {
 
   const toggleCard = (suit, rank) => {
     const key = `${suit}-${rank}`;
-    setCheckedCards((prev) => ({
+    setCheckedCards(prev => ({
       ...prev,
       [key]: !prev[key],
     }));
@@ -26,49 +26,62 @@ export default function CardTracker() {
   const checkedCount = Object.values(checkedCards).filter(Boolean).length;
 
   return (
-    <main className="p-4 min-h-screen bg-white text-black">
-      <h1 className="text-3xl font-bold text-center mb-2">Contador de Cartas - Golpeado</h1>
+    <main style={{ padding: '20px', maxWidth: '1000px', margin: '0 auto' }}>
+      <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Contador de Cartas - Golpeado</h1>
 
-      <div className="flex flex-col items-center gap-2 mb-4">
-        <p className="text-lg">Cartas marcadas: <strong>{checkedCount}</strong> / {totalCards}</p>
-        <button
-          onClick={resetAll}
-          className="bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600"
-        >
+      <div style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        marginBottom: '20px',
+        gap: '10px'
+      }}>
+        <p style={{ fontSize: '1.2rem' }}>
+          Cartas marcadas: <strong>{checkedCount}</strong> / {totalCards}
+        </p>
+        <button onClick={resetAll}>
           Limpiar todo
         </button>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-base border border-gray-300">
-          <thead className="bg-gray-200">
+      <div style={{ overflowX: 'auto' }}>
+        <table>
+          <thead>
             <tr>
-              <th className="p-2 border border-gray-300 text-left">Carta</th>
-              {suits.map((suit) => (
-                <th key={suit.symbol} className="p-2 border border-gray-300 text-center text-xl">
+              <th style={{ textAlign: 'left' }}>Carta</th>
+              {suits.map(suit => (
+                <th key={suit.symbol} style={{ fontSize: '1.5rem' }}>
                   {suit.symbol}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {ranks.map((rank) => (
-              <tr key={rank} className="even:bg-gray-50">
-                <td className="p-2 border border-gray-300 font-semibold text-lg">{rank}</td>
-                {suits.map((suit) => {
+            {ranks.map(rank => (
+              <tr key={rank} style={{ backgroundColor: 'rgba(0,0,0,0.02)' }}>
+                <td style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>{rank}</td>
+                {suits.map(suit => {
                   const key = `${suit.symbol}-${rank}`;
                   const isChecked = !!checkedCards[key];
                   return (
                     <td
                       key={key}
-                      className="p-2 border border-gray-300 text-center cursor-pointer"
                       onClick={() => toggleCard(suit.symbol, rank)}
+                      style={{ cursor: 'pointer' }}
                     >
-                      <div
-                        className={`w-10 h-10 mx-auto rounded border-2 border-gray-500 flex items-center justify-center text-lg transition-colors duration-200 ${
-                          isChecked ? 'bg-green-500 text-white' : 'bg-white hover:bg-gray-200'
-                        }`}
-                      >
+                      <div style={{
+                        width: '40px',
+                        height: '40px',
+                        margin: '0 auto',
+                        borderRadius: '4px',
+                        border: '2px solid #555',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: isChecked ? '#28a745' : 'white',
+                        color: isChecked ? 'white' : 'transparent',
+                        transition: 'all 0.2s'
+                      }}>
                         {isChecked ? '✓' : ''}
                       </div>
                     </td>
