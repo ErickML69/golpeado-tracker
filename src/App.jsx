@@ -13,7 +13,7 @@ export default function CardTracker() {
   const [checkedCards, setCheckedCards] = useState({});
 
   const toggleCard = (suit, rank) => {
-    const key = `${suit}-${rank}`; // Corregido: se usaba suit.symbol y tenía un corchete mal cerrado
+    const key = `${suit}-${rank}`;
     setCheckedCards((prev) => ({
       ...prev,
       [key]: !prev[key],
