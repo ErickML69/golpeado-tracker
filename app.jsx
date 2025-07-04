@@ -13,7 +13,7 @@ export default function CardTracker() {
   const [checkedCards, setCheckedCards] = useState({});
 
   const toggleCard = (suit, rank) => {
-    const key = `${suit.symbol}-${rank}`;
+    const key = `${suit}-${rank}`; // Corregido: se usaba suit.symbol y tenía un corchete mal cerrado
     setCheckedCards((prev) => ({
       ...prev,
       [key]: !prev[key],
@@ -56,7 +56,7 @@ export default function CardTracker() {
               <tr key={rank} className="even:bg-gray-50">
                 <td className="p-2 border border-gray-300 font-semibold text-lg">{rank}</td>
                 {suits.map((suit) => {
-                  const key = \`\${suit.symbol}-\${rank}\`;
+                  const key = `${suit.symbol}-${rank}`;
                   const isChecked = !!checkedCards[key];
                   return (
                     <td
@@ -65,7 +65,9 @@ export default function CardTracker() {
                       onClick={() => toggleCard(suit.symbol, rank)}
                     >
                       <div
-                        className={\`w-10 h-10 mx-auto rounded border-2 border-gray-500 flex items-center justify-center text-lg transition-colors duration-200 \${isChecked ? 'bg-green-500 text-white' : 'bg-white hover:bg-gray-200'}\`}
+                        className={`w-10 h-10 mx-auto rounded border-2 border-gray-500 flex items-center justify-center text-lg transition-colors duration-200 ${
+                          isChecked ? 'bg-green-500 text-white' : 'bg-white hover:bg-gray-200'
+                        }`}
                       >
                         {isChecked ? '✓' : ''}
                       </div>
